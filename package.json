@@ -1,0 +1,30 @@
+{
+  "name": "claude-spec-driven-development",
+  "version": "0.1.0",
+  "description": "A language- and stack-agnostic Spec-Driven Development framework for Claude Code. Scaffolds agents, skills, commands, and a spec workflow tailored to your stack.",
+  "type": "module",
+  "bin": {
+    "csdd": "bin/setup.mjs",
+    "csdd-setup": "bin/setup.mjs"
+  },
+  "scripts": {
+    "setup": "node bin/setup.mjs",
+    "start": "node bin/setup.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.1"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "spec-driven-development",
+    "sdd",
+    "scaffold",
+    "agents"
+  ],
+  "license": "MIT"
+}
