@@ -8,3 +8,8 @@ xcuserdata/
 Package.resolved
 *.ipa
 *.dSYM.zip
+
+# Supabase CLI local state
+supabase/.branches/
+supabase/.temp/
+.env

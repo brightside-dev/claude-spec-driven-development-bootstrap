@@ -47,6 +47,8 @@ Stack agents for **{{STACK_LABEL}}**: {{STACK_AGENTS}}.
 
 - **Platform:** {{PLATFORM}}
 - **Language:** {{LANGUAGE}}
+- **Database:** {{DATABASE}}
+- **Dev services:** `{{DEV_SERVICES}}`
 - **Test:** `{{TEST_COMMAND}}`
 - **Build:** `{{BUILD_COMMAND}}`
 - **Run:** `{{RUN_COMMAND}}`

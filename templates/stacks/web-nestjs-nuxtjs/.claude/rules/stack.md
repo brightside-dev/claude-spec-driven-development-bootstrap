@@ -14,6 +14,16 @@ packages/
 
 - Test: `{{TEST_COMMAND}}` · Build: `{{BUILD_COMMAND}}` · Run: `{{RUN_COMMAND}}`
 - Package manager: pnpm workspaces. Node 20+.
+- Database: **{{DATABASE}}**. Start it with `{{DEV_SERVICES}}` before running the app.
+
+## Database (MySQL via Docker)
+
+- `docker-compose.yml` at the project root runs MySQL 8 on `localhost:3306`. Only
+  the DB runs in Docker; the app runs locally with `{{RUN_COMMAND}}`.
+- Copy `.env.example` to `.env`; the API reads `DATABASE_URL` from it. `.env` is
+  gitignored - never commit real credentials.
+- Schema changes go through **migrations**, never `synchronize: true`. Data lives
+  in the `mysql-data` volume; `docker compose down -v` wipes it for a clean slate.
 
 ## Backend (NestJS)
 

@@ -5,7 +5,7 @@ The source of truth for what this product does. Code makes these true.
 ```
 spec/
   project.md          # what this product is, and for whom
-  specs/              # canonical, current behaviour — one folder per capability
+  specs/              # canonical, current behaviour - one folder per capability
   changes/            # proposals in flight
   changes/archive/    # shipped changes, kept for history
   templates/          # skeletons: proposal, tasks, design, spec-delta

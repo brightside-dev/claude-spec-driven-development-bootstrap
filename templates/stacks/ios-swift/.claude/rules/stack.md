@@ -17,6 +17,20 @@ App/
 - Run: `{{RUN_COMMAND}}`
 - Swift 5.9+, SwiftUI, targeting a current iOS version. Swift Package Manager for
   dependencies.
+- Backend: **{{DATABASE}}**. Start the local stack with `{{DEV_SERVICES}}`.
+
+## Backend (Supabase)
+
+- Local dev runs the full Supabase stack in Docker via the Supabase CLI. Config
+  lives in `supabase/config.toml`; `supabase start` boots Postgres + Auth +
+  Storage + Studio, `supabase stop` tears it down.
+- Install the CLI once (`brew install supabase/tap/supabase`), then `supabase
+  start`. `supabase status` prints the local API URL and anon key the app uses.
+- Add the `supabase-swift` package via SPM. Read the local API URL and anon key
+  from build config - never hardcode production keys into the app.
+- Schema changes are **migrations** in `supabase/migrations/` (`supabase migration
+  new <name>`), applied with `supabase db reset`. The DB is the source of truth,
+  not ad-hoc changes in Studio.
 
 ## Architecture
 

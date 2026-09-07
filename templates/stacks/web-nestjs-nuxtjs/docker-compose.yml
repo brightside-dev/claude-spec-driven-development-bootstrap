@@ -1,0 +1,29 @@
+# Local development services for {{PROJECT_TITLE}}.
+# Brings up MySQL 8 on localhost:3306; the NestJS API connects to it via DATABASE_URL.
+# Run the app itself locally with `{{RUN_COMMAND}}` - only the DB lives in Docker.
+#
+#   docker compose up -d      # start MySQL in the background
+#   docker compose down       # stop it (data persists in the named volume)
+#   docker compose down -v    # stop and wipe the database
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+      MYSQL_USER: ${MYSQL_USER:-app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-app}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql-data:

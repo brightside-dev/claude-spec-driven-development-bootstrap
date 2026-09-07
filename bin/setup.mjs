@@ -90,6 +90,7 @@ async function main() {
       `${pc.dim('Project')}    ${pc.bold(projectTitle)}  ${pc.dim('(command: /' + projectName + ')')}`,
       `${pc.dim('Stack')}      ${stack.label} ${pc.dim('· ' + stack.hint)}`,
       `${pc.dim('Language')}   ${stack.language}`,
+      `${pc.dim('Database')}   ${stack.database}`,
       `${pc.dim('Location')}   ${targetDir}`,
       `${pc.dim('Agents')}     ${['spec-architect', 'spec-engineer', 'spec-reviewer', 'spec-qa', ...stack.agents].join(', ')}`,
     ].join('\n'),
@@ -124,6 +125,7 @@ async function main() {
   note(
     [
       `${pc.cyan('cd')} ${path.relative(process.cwd(), targetDir) || '.'}`,
+      `${pc.cyan(stack.devServices)}`,
       `${pc.cyan('claude')}                       ${pc.dim('# open Claude Code here')}`,
       '',
       `${pc.bold('Then, inside Claude Code:')}`,

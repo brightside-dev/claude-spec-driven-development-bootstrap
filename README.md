@@ -3,7 +3,7 @@
 A language- and stack-agnostic **Spec-Driven Development (SDD)** framework for
 [Claude Code](https://claude.com/claude-code). Run one pretty CLI wizard, pick a
 stack, and get a ready-to-use workspace: default agents, example skills, a
-namespaced command set, and a spec workflow — all tailored to your stack.
+namespaced command set, and a spec workflow - all tailored to your stack.
 
 ```
   ┌────────────────────────────────────────────────┐
@@ -53,22 +53,46 @@ propose  ->  plan  ->  implement  ->  review  ->  archive
   spec       tasks       code+tests    verdict     specs/ updated
 ```
 
-- **`spec/specs/`** — canonical, current behaviour (one folder per capability).
-- **`spec/changes/`** — proposals in flight, each carrying a *delta*.
-- **`spec/changes/archive/`** — shipped changes, kept for history.
+- **`spec/specs/`** - canonical, current behaviour (one folder per capability).
+- **`spec/changes/`** - proposals in flight, each carrying a *delta*.
+- **`spec/changes/archive/`** - shipped changes, kept for history.
 
 At any moment: `specs/` = truth, `changes/` = intent, `archive/` = history.
 
 ## The stacks
 
-| Stack | What you get |
-|---|---|
-| **Web** | NestJS API + Nuxt 3 frontend (TypeScript), shared-types contract |
-| **iOS** | Swift + SwiftUI, MVVM, async/await |
-| **Android** | Kotlin + Jetpack Compose, MVVM + unidirectional data flow |
-| **Desktop** | Python + PySide6 (Qt), Qt-free testable core |
+| Stack | What you get | Data + dev services |
+|---|---|---|
+| **Web** | NestJS API + Nuxt 3 frontend (TypeScript), shared-types contract | MySQL 8 via Docker Compose |
+| **iOS** | Swift + SwiftUI, MVVM, async/await | Supabase (Postgres) via Supabase CLI |
+| **Android** | Kotlin + Jetpack Compose, MVVM + unidirectional data flow | Supabase (Postgres) via Supabase CLI |
+| **Desktop** | Python + PySide6 (Qt), Qt-free testable core | Embedded SQLite (+ headless test/CI Docker image) |
 
 Each stack adds its own engineer and designer agents on top of the four defaults.
+
+## Databases & Docker
+
+Every stack ships with a local data layer and a one-command way to bring up its
+dev services. The wizard prints the exact command; here is what each stack lands
+with.
+
+| Stack | Database | Start local services |
+|---|---|---|
+| **Web** | MySQL 8 (runs in Docker; the app runs on the host) | `docker compose up -d` |
+| **iOS / Android** | Supabase / Postgres (full stack in Docker via the CLI) | `supabase start` |
+| **Desktop** | SQLite - an embedded file, no server, no container | (none needed) |
+
+- **Web** gets a root `docker-compose.yml` (MySQL 8 on `localhost:3306`, data in a
+  named volume) and a `.env.example`. Copy it to `.env`, run `docker compose up
+  -d`, then `pnpm dev`. Schema changes go through migrations, never
+  `synchronize: true`.
+- **iOS / Android** get a `supabase/config.toml`. Install the Supabase CLI once,
+  then `supabase start` boots Postgres + Auth + Storage + Studio in Docker;
+  `supabase status` prints the local API URL and anon key. Schema changes are
+  migrations under `supabase/migrations/`.
+- **Desktop** uses embedded SQLite - a file next to the app, no Docker for the DB.
+  A `Dockerfile` is included only to run the test suite headlessly in CI
+  (`QT_QPA_PLATFORM=offscreen`); the GUI itself runs on the host.
 
 ## What gets generated
 
@@ -89,6 +113,10 @@ project1/
     ├── changes/                 # active + archive/
     └── templates/               # proposal, tasks, design, spec-delta
 ```
+
+Plus stack-specific dev files: **Web** adds `docker-compose.yml` + `.env.example`
+(MySQL), **iOS/Android** add `supabase/config.toml` (Supabase CLI), and
+**Desktop** adds a headless `Dockerfile` for CI.
 
 ## Adding a stack
 

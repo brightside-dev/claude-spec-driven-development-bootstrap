@@ -54,6 +54,8 @@ Defined in `buildVars()` (`lib/scaffold.mjs`) from the chosen stack entry:
 | `PROJECT_TITLE` | the name as typed |
 | `STACK_ID` / `STACK_LABEL` / `STACK_HINT` | the stack entry |
 | `PLATFORM` / `LANGUAGE` | the stack entry |
+| `DATABASE` | the stack's datastore (MySQL / SQLite / Supabase) |
+| `DEV_SERVICES` | command that starts local dev services (Docker / Supabase CLI) |
 | `TEST_COMMAND` / `BUILD_COMMAND` / `RUN_COMMAND` | the stack entry |
 | `STACK_AGENTS` | comma-joined agent names for the stack |
 | `DATE` | today |

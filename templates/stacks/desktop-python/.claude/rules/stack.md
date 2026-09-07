@@ -17,6 +17,23 @@ tests/
 - Build: `{{BUILD_COMMAND}}` (PyInstaller for a shippable binary)
 - Run: `{{RUN_COMMAND}}`
 - Python 3.11+, PySide6 (Qt). Dependencies in a virtualenv; pin them.
+- Database: **{{DATABASE}}**. No server, no container - it is a file next to the app.
+
+## Persistence (SQLite)
+
+- Local state lives in an embedded SQLite file (e.g. `app.db`), opened from
+  `core/` via the stdlib `sqlite3`. It is single-user desktop storage - there is
+  no DB server and no Docker DB container.
+- Keep the DB file out of git (`*.db` is gitignored). Ship schema setup/migration
+  as code the app runs on first launch, not as a manual step.
+
+## Docker (headless test/CI only)
+
+- The GUI is **not** run in Docker (a Qt app needs a display; X11 forwarding is
+  painful and not worth it). The `Dockerfile` builds a headless image only for
+  running tests and linters in CI, with `QT_QPA_PLATFORM=offscreen`.
+- Locally, run and test on the host in a virtualenv. Use the image when you want
+  the exact CI environment: `{{DEV_SERVICES}}` then `docker run --rm app-ci`.
 
 ## Architecture
 

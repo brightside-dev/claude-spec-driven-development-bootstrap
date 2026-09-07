@@ -17,6 +17,22 @@ app/
 - Build: `{{BUILD_COMMAND}}`
 - Run: `{{RUN_COMMAND}}`
 - Kotlin, Jetpack Compose, Gradle (Kotlin DSL).
+- Backend: **{{DATABASE}}**. Start the local stack with `{{DEV_SERVICES}}`.
+
+## Backend (Supabase)
+
+- Local dev runs the full Supabase stack in Docker via the Supabase CLI. Config
+  lives in `supabase/config.toml`; `supabase start` boots Postgres + Auth +
+  Storage + Studio, `supabase stop` tears it down.
+- Install the CLI once (`brew install supabase/tap/supabase`, or see the docs for
+  other platforms), then `supabase start`. `supabase status` prints the local API
+  URL and anon key the app uses.
+- Add the `supabase-kt` (supabase-community) libraries via Gradle. Read the API
+  URL and anon key from `local.properties` / build config - never commit
+  production keys.
+- Schema changes are **migrations** in `supabase/migrations/` (`supabase migration
+  new <name>`), applied with `supabase db reset`. The DB is the source of truth,
+  not ad-hoc changes in Studio.
 
 ## Architecture
 
