@@ -7,12 +7,12 @@ namespaced command set, and a spec workflow — all tailored to your stack.
 
 ```
   ┌────────────────────────────────────────────────┐
-  │  CSDD   Claude Spec-Driven Development          │
+  │  CSDD   Claude Spec-Driven Development         │
   │  ─────────────────────────────────────────     │
-  │  Project name?     › project1                   │
-  │  Which stack?      › Web · NestJS + Nuxt 3      │
-  │  Where?            › ./project1                  │
-  │  ✔ Workspace ready.                              │
+  │  Project name?     › project1                  │
+  │  Which stack?      › Web · NestJS + Nuxt 3     │
+  │  Where?            › ./project1                │
+  │  ✔ Workspace ready.                            │
   └────────────────────────────────────────────────┘
 ```
 
