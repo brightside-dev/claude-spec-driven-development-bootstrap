@@ -24,7 +24,17 @@
 - The PR body says, in plain language: what someone can now do differently,
   which requirements it satisfies, and any recorded assumptions.
 
+## Waiting on CI
+
+Poll CI in the background (`run_in_background`) about every 4 minutes, not in a
+tight loop. Each poll is a turn that re-reads the whole context, and a gap over
+5 minutes lets the prompt cache expire, so the next turn re-writes it at many
+times the read price. Under 5 minutes and spaced out is the cheap band.
+
 ## Never
+
+- Cut a release or deploy to production. That is a human decision; an agent
+  stops at a merged PR.
 
 - Force-push without explicit approval.
 - Skip or suppress a failing check.
