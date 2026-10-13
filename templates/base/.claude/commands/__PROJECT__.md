@@ -36,7 +36,8 @@ Number every requirement.
 
 - **S** — do it inline: spec delta + code + a regression test, then ship.
 - **M** — spawn `spec-architect` to write `tasks.md`, then `spec-engineer` per
-  layer, then `spec-reviewer` and `spec-qa`.
+  layer, then one `spec-reviewer` (`/{{PROJECT_NAME}}:review`). For a bug,
+  `spec-qa` writes the failing test first.
 - **L** — as M, but pause for a human to approve the spec before implementation,
   and ship one slice per PR.
 

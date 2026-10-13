@@ -27,6 +27,13 @@ Run tests with: `{{TEST_COMMAND}}`
 - Shared mutable state between tests.
 - Changing an assertion to make it pass when the expectation was actually right.
 
+## A check that keeps failing moves earlier
+
+A deterministic CI failure that recurs more than twice a week is not bad luck:
+move it into a local check that runs before push, and add the rule to the page
+the writer already holds when they write the line. A failure caught at CI costs
+a full run; caught before push, it costs seconds.
+
 ## When requirements change
 
 Update the tests to the new expectation. Do not patch around a stale test — a

@@ -4,7 +4,9 @@ These hold for every change, at every size. Scope never relaxes them.
 
 1. **Spec first.** Every behavioural change traces to a proposal in
    `spec/changes/` or an archived change synced into `spec/specs/`. No spec, no
-   merge. Docs-only, config-only, and test-only changes are exempt.
+   merge. Docs-only, config-only, and test-only changes are exempt from the
+   spec, never from review. `.claude/**` is agent configuration: a change there
+   changes behaviour and is always reviewed.
 
 2. **One change = one concern = one branch.** Small and focused beats big and
    mixed. Branch names: `feature/<slug>`, `fix/<slug>`, `chore/<slug>`.
@@ -28,3 +30,9 @@ These hold for every change, at every size. Scope never relaxes them.
 
 8. **Least surprise.** Code does what its name says. Prefer the simplest thing
    that works over the clever thing that impresses.
+
+9. **Spend turns, not just tokens.** Every turn re-reads the whole context.
+   Batch independent tool calls (reads, greps, status checks) into one turn.
+   Never re-read a file to verify an edit - the edit tool already failed if it
+   did not apply. Rule pages are already in your context; cite them, don't
+   reopen them.

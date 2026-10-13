@@ -106,7 +106,9 @@ project1/
 │   │   ├── project1.md          # /project1  (the entry point)
 │   │   └── project1/            # /project1:propose, :plan, :implement, ...
 │   ├── skills/                  # spec-status, new-capability
-│   └── rules/                   # core, spec-workflow, testing, shipping, stack
+│   ├── rules/                   # core, spec-workflow, testing, shipping, stack
+│   ├── hooks/                   # context ceiling, uncommitted work, branch guard (needs jq)
+│   └── settings.json            # wires the hooks
 └── spec/
     ├── project.md               # fill this in first
     ├── specs/                   # canonical capabilities

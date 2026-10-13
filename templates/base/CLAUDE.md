@@ -37,9 +37,9 @@ Default agents handle the workflow; stack agents handle the code.
 
 - `spec-architect` — turns a proposal into a layered, testable plan.
 - `spec-engineer` — implements one planned phase: code, tests, commit.
-- `spec-reviewer` — reviews a diff against the spec and quality lenses.
-- `spec-qa` — judges whether the change is tested to the bar; writes failing
-  tests first in debug mode.
+- `spec-reviewer` - reviews a diff against the spec and every quality lens,
+  tests included, in one reading.
+- `spec-qa` - reproduces a bug with a failing test before any fix.
 
 Stack agents for **{{STACK_LABEL}}**: {{STACK_AGENTS}}.
 
@@ -63,6 +63,13 @@ Stack-specific conventions live in
 - [`testing.md`](.claude/rules/testing.md) — the coverage bar.
 - [`shipping.md`](.claude/rules/shipping.md) — commits, branches, PRs.
 - [`stack.md`](.claude/rules/stack.md) — {{STACK_LABEL}} specifics.
+
+## Hooks
+
+[`.claude/hooks/`](.claude/hooks/) enforce a few rules automatically (needs
+`jq`): a warning when context grows large, a warning about uncommitted or
+unpushed work, and a guard against switching to the default branch while this
+branch has unmerged work. See its README.
 
 ## Where the specs live
 
