@@ -16,21 +16,77 @@ namespaced command set, and a spec workflow - all tailored to your stack.
   └────────────────────────────────────────────────┘
 ```
 
-## Quick start
+## Starting a new project
+
+Nothing in the generated workspace is tied to any one product. The project name
+you type becomes the command namespace, and every agent, rule and command is
+written for that project and the stack you pick.
+
+### 1. Prerequisites (once per machine)
+
+- **Node 18+** to run the wizard.
+- **[Claude Code](https://claude.com/claude-code)**.
+- **`jq`** for the hooks (`brew install jq`, `apt-get install -y jq`, or
+  `winget install jqlang.jq`). Without it the hooks silently do nothing.
+- Your stack's own tools: Docker for Web, the Supabase CLI for iOS/Android,
+  Python for Desktop.
+
+### 2. Install the wizard (once)
 
 ```bash
-# from this framework directory
+cd /path/to/claude-spec-driven-development-framework
 npm install
-npm run setup          # or: node bin/setup.mjs
+npm link               # puts `csdd` on your PATH
 ```
 
-Answer three questions (project name, stack, location) and it scaffolds a new
-project. Then:
+### 3. Scaffold the project
+
+Run the wizard from the folder that should **contain** the new project. The
+location prompt is relative to where you run it, so running it inside this
+framework directory would create the project in here.
+
+```bash
+cd ~/Sites
+csdd                   # without npm link: node /path/to/framework/bin/setup.mjs
+```
+
+It asks for the project name, the stack, the location (default
+`./<project-name>`), and whether to `git init`. If the target folder already has
+files, it asks before writing anything.
+
+### 4. Connect it to a remote
+
+The workflow diffs and guards against `origin/<default branch>`, so give it one
+early:
 
 ```bash
 cd project1
-claude                 # open Claude Code
+git add -A && git commit -m "chore: scaffold spec-driven workspace"
+git remote add origin <your-repo-url>
+git push -u origin HEAD
+git remote set-head origin --auto   # lets review find the default branch
 ```
+
+### 5. Describe the product
+
+Fill in `spec/project.md` first: what the product is, who it is for, and what is
+out of scope. Every proposal is judged against it.
+
+### 6. Start building
+
+```bash
+<the stack's dev-services command>   # the wizard prints it, e.g. docker compose up -d
+claude
+```
+
+Then describe the first piece of work in plain language:
+
+```
+/project1 users can sign up with an email and password
+```
+
+It classifies the work, asks its questions in one round, writes the spec, and
+runs the loop below.
 
 Inside Claude Code, everything is under your project's namespace:
 
